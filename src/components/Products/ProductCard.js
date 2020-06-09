@@ -10,6 +10,7 @@ const CardContainer = styled.div`
   width: auto;
   min-height: 250px;
   border-radius: 20px;
+  padding: 8px;
 `
 
 export class ProductCard extends Component {
