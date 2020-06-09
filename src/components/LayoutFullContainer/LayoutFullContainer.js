@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import { ProductGrid } from '../Products/ProductsGrid'
-import { OfferDetails } from '../OfferDetails/OfferDetails'
 import { CreateOffer } from '../CreateOffer/CreateOffer'
+import axios from 'axios'
 
 const LayoutFullContainer = styled.div`
     display: flex;
@@ -24,42 +24,16 @@ const HomePageCard = styled.div`
     min-width: 30vw;
     min-height: 30vh;
 `
-
-const ofertas = [
-    {
-        title: 'Website',
-        description: 'app em react',
-        value: 20,
-        paymentMethods: ['cartao', 'dinheiro'],
-        dueDate: 12062020
-    },
-    {
-        title: 'limpeza',
-        description: 'limpeza domiciliar',
-        value: 10,
-        paymentMethods: ['cartao', 'dinheiro'],
-        dueDate: 12062020
-    },
-    {
-        title: 'conserto',
-        description: 'consertar parede',
-        value: 15,
-        paymentMethods: ['cartao', 'dinheiro'],
-        dueDate: 12062020
-    },
-    {
-        title: 'conserto',
-        description: 'consertar parede',
-        value: 15,
-        paymentMethods: ['cartao', 'dinheiro'],
-        dueDate: 12062020
-    }
-]
 export class LayoutFull extends Component {
 
     state = {
         page: 'inicial',
-        offers: ofertas,
+        offers: [],
+        title: '',
+        description: '',
+        price: '',
+        payment: [],
+        date: ''
     }
 
     onClickGrid = () => {
@@ -74,13 +48,51 @@ export class LayoutFull extends Component {
         })
     }
 
+    handleInputChange = (event) => {
+        const target = event.target
+        const value = target.value
+        const name = target.name
+
+        this.setState({
+            [name]: value
+        })
+    }
+
+    clearInput = () => {
+        this.setState({
+            title: '',
+            description: '',
+            price: '',
+            date: '',
+            payment:''
+        })
+    }
+    // createOffer = () => {
+    //     const body = {
+    //         title: this.state.title,
+    //         description: this.state.description,
+    //         value: this.state.value,
+    //         paymentMethods: this.state.payment,
+    //         dueDate: this.state.date
+    //     }
+    //     axios.post ('https://us-central1-labenu-apis.cloudfunctions.net/futureNinjasOne/jobs', body).
+    // }
+
+
     renderPage = () => {
         switch(this.state.page){
             case 'grid':
                 return <ProductGrid handleOffers ={this.state.offers} />
             
             case 'create':
-                return <CreateOffer />
+                return <CreateOffer valueTitle = {this.state.title}
+                                    valueDescription = {this.state.description}
+                                    valuePrice = {this.state.price}
+                                    valuePayment = {this.state.payment}
+                                    valueDate ={this.state.date}
+                                    handleInputChange={this.handleInputChange}
+                                    clearInput={this.clearInput}
+                                    />
 
             default: 
                 return (<HomePageContainer>
