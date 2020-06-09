@@ -13,7 +13,7 @@ export class Footer extends Component {
     render() {
         return (
         <FooterContainer>
-            Filters
+            Eros Valente || Kaueny Alves || Manoel Neto || Marcos Oliveira || Tatiana Fagundes
         </FooterContainer>
         )
     }
