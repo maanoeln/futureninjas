@@ -21,7 +21,25 @@ const Sorting = styled.select`
 `
 
 export class ProductGrid extends Component {
+  state = {
+    filters: false
+  }
+
+  onClickFilter = () => {
+    this.setState({
+      filters: !this.state.filters
+    })
+  }
+
   render() {
+
+    const offers = this.props.handleOffers.map(offer => {
+      return <ProductCard key={offer.id} 
+                          offer={offer} 
+              />
+    
+    })
+
     return (
       <fragment>
         <SortingHeader>
@@ -34,17 +52,16 @@ export class ProductGrid extends Component {
               <option value='alpha'>Nomes de A-Z</option>
             </Sorting>
           </label>
+          <button onClick={this.onClickFilter}>Filtrar</button>
         </SortingHeader>
-        <Filters />
+        {this.state.filters &&
+        <Filters />}
         <ProductGridContainer>
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+          {this.props.handleOffers === 0 && <div>Carregando</div>}
+          {offers}
+          {/* {props === 'lista' ? {offers} : <ProductDetails handleOffers={this.props.handleOffers}
+                                                          handleId={this.props.handleOffer.id}
+                                                          /> */}
         </ProductGridContainer>
       </fragment>
     )

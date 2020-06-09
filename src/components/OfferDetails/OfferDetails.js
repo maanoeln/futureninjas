@@ -15,7 +15,8 @@ export class OfferDetails extends Component {
     render() {
         return (
             <OfferDetailsContainer>
-                OfferDetails
+                {/* {props.length === 0 && <LoadingContainer>Carregando...</LoadingContainer>}
+                {this.getPlaylistsDetails()} */}
                 <button>Voltar</button>
             </OfferDetailsContainer>
         )
