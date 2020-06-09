@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { ProductCard } from './ProductCard'
 import styled from 'styled-components'
+import { Filters } from '../Filters/Filters'
 
 const ProductGridContainer = styled.div`
     background: lightgray;
@@ -34,6 +35,7 @@ export class ProductGrid extends Component {
             </Sorting>
           </label>
         </SortingHeader>
+        <Filters />
         <ProductGridContainer>
           <ProductCard />
           <ProductCard />

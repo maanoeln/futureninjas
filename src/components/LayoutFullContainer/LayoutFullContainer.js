@@ -1,18 +1,21 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import { ProductGrid } from '../Products/ProductsGrid'
-import { Filters } from '../Filters/Filters'
+import { OfferDetails } from '../OfferDetails/OfferDetails'
+import { CreateOffer } from '../CreateOffer/CreateOffer'
 
 const LayoutFullContainer = styled.div`
-    display: grid;
-    grid-template-columns: 4fr 0.75fr;
+    display: flex;
+    flex-direction: column;
+    height: auto;
 `
 export class LayoutFull extends Component {
     render() {
         return (
             <LayoutFullContainer>
                 <ProductGrid />
-                <Filters />
+                <OfferDetails />
+                <CreateOffer />
             </LayoutFullContainer>
         )
     }
