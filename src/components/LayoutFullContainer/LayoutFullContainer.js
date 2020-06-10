@@ -29,11 +29,7 @@ export class LayoutFull extends Component {
     state = {
         page: 'inicial',
         offers: [],
-        title: '',
-        description: '',
-        price: '',
-        payment: [],
-        date: ''
+
     }
 
     onClickGrid = () => {
@@ -48,26 +44,26 @@ export class LayoutFull extends Component {
         })
     }
 
-    handleInputChange = (event) => {
-        const target = event.target
-        const value = target.value
-        const name = target.name
-
-        this.setState({
-            [name]: value
+   
+    createOffer = (title, description, value, payment, date) => {
+        const body = {
+            title: title,
+            description: description,
+            value: value,
+            paymentMethods: payment,
+            dueDate: date
+        }
+        axios.post('https://us-central1-labenu-apis.cloudfunctions.net/futureNinjasOne/jobs', body
+        )
+        .then((response) => {
+            
+        })
+        .catch((error) => {
+            window.alert('Erro ao cadastrar oferta')
+            console.log(error)
         })
     }
-
-    clearInput = () => {
-        this.setState({
-            title: '',
-            description: '',
-            price: '',
-            date: '',
-            payment:''
-        })
-    }
-
+    
     componentDidMount() {
         this.getOffer()
     }
@@ -89,14 +85,7 @@ export class LayoutFull extends Component {
                 return <ProductGrid handleOffers ={this.state.offers} />
             
             case 'create':
-                return <CreateOffer valueTitle = {this.state.title}
-                                    valueDescription = {this.state.description}
-                                    valuePrice = {this.state.price}
-                                    valuePayment = {this.state.payment}
-                                    valueDate ={this.state.date}
-                                    handleInputChange={this.handleInputChange}
-                                    clearInput={this.clearInput}
-                                    />
+                return <CreateOffer createOfferFunction={this.createOffer} />
 
             default: 
                 return (<HomePageContainer>
