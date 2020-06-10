@@ -63,6 +63,20 @@ export class LayoutFull extends Component {
             console.log(error)
         })
     }
+    
+    componentDidMount() {
+        this.getOffer()
+    }
+
+    getOffer = () => {
+        axios.get('https://us-central1-labenu-apis.cloudfunctions.net/futureNinjasOne/jobs').then(response => {
+            this.setState({
+                offers: response.data.jobs
+            })
+        }).catch(e => {
+            window.alert('Houve um erro ao carregar os dados.')
+        })
+    }
 
 
     renderPage = () => {
