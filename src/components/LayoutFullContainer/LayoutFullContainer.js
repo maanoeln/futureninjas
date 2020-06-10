@@ -67,16 +67,20 @@ export class LayoutFull extends Component {
             payment:''
         })
     }
-    // createOffer = () => {
-    //     const body = {
-    //         title: this.state.title,
-    //         description: this.state.description,
-    //         value: this.state.value,
-    //         paymentMethods: this.state.payment,
-    //         dueDate: this.state.date
-    //     }
-    //     axios.post ('https://us-central1-labenu-apis.cloudfunctions.net/futureNinjasOne/jobs', body).
-    // }
+
+    componentDidMount() {
+        this.getOffer()
+    }
+
+    getOffer = () => {
+        axios.get('https://us-central1-labenu-apis.cloudfunctions.net/futureNinjasOne/jobs').then(response => {
+            this.setState({
+                offers: response.data.jobs
+            })
+        }).catch(e => {
+            window.alert('Houve um erro ao carregar os dados.')
+        })
+    }
 
 
     renderPage = () => {

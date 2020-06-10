@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import { Description, AttachMoney } from '@material-ui/icons'
 
 const CardContainer = styled.div`
   background: white;
@@ -14,14 +15,26 @@ const CardContainer = styled.div`
 `
 
 export class ProductCard extends Component {
+
   render() {
+
+    const methods = this.props.offer.paymentMethods.map(method => {
+      if(method === 'card'){
+        return <Description />
+      } else {
+        return <AttachMoney />
+      }
+    })
+
     const offers = this.props.offer
+
     return (
       <CardContainer>
         <h1>{offers.title}</h1>
         <p>Descriçãp: {offers.description}</p>
         <p>Valor: {offers.value}</p>
-        <p>Formas de pagamento:{offers.paymentMethods}</p>
+        <p>Formas de pagamento:</p>
+        {methods}
         <p>Prazo: {offers.dueDate}</p>
         <button>+ informacoes</button>
       </CardContainer>
