@@ -23,7 +23,7 @@ const jss = create({
 const theme = createMuiTheme({
 	palette: {
 		primary: {
-			main: "#8786D1"
+			main: "#ffffff"
 		},
 		secondary: {
 			main: "#494949"

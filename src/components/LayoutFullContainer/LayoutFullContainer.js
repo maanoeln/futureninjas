@@ -7,12 +7,13 @@ import axios from 'axios'
 const LayoutFullContainer = styled.div`
     display: flex;
     flex-direction: column;
-    height: auto;
+    min-height: auto;
 `
 
 const HomePageContainer = styled.div`
     display: flex;
     justify-content: space-evenly;
+    align-items: center;
     padding: 16px;
     flex-grow: 1;
 `
@@ -22,7 +23,7 @@ const HomePageCard = styled.div`
     align-items: center;
     border: 1px solid black;
     min-width: 30vw;
-    min-height: 30vh;
+    height: 30vh;
 `
 export class LayoutFull extends Component {
 
@@ -33,8 +34,7 @@ export class LayoutFull extends Component {
         description: '',
         price: '',
         payment: [],
-        date: '',
-        sort: ''
+        date: ''
     }
 
     onClickGrid = () => {
@@ -83,27 +83,12 @@ export class LayoutFull extends Component {
         })
     }
 
-    sortOffers = (offerOne, offerTwo) => {
-        const sortConfig = this.state.sort
-
-        if(sortConfig === 'ascending') {
-            return offerOne.price - offerTwo.price
-        } else if ( sortConfig === 'descending') {
-            return offerTwo.price - offerOne.price
-        } else if(sortConfig === 'nameAsc'){
-            const offerOneTitle = offerOne.title
-            const offerTwoTitle = offerTwo.title
-            
-            return offerOneTitle.localeCompare(offerTwoTitle)
-        }
-    }
-
-
     renderPage = () => {
         switch(this.state.page){
             case 'grid':
                 return <ProductGrid handleOffers ={this.state.offers}
-                                    theme={this.props.theme}/>
+                                    handleChange={this.handleInputChange}
+                                    />
             
             case 'create':
                 return <CreateOffer valueTitle = {this.state.title}
@@ -128,7 +113,6 @@ export class LayoutFull extends Component {
     }
 
     render() {
-
         return (
             <LayoutFullContainer>
                 {this.renderPage()}
