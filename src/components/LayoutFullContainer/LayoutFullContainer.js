@@ -7,12 +7,13 @@ import axios from 'axios'
 const LayoutFullContainer = styled.div`
     display: flex;
     flex-direction: column;
-    height: auto;
+    min-height: auto;
 `
 
 const HomePageContainer = styled.div`
     display: flex;
     justify-content: space-evenly;
+    align-items: center;
     padding: 16px;
     flex-grow: 1;
 `
@@ -22,7 +23,7 @@ const HomePageCard = styled.div`
     align-items: center;
     border: 1px solid black;
     min-width: 30vw;
-    min-height: 30vh;
+    height: 30vh;
 `
 export class LayoutFull extends Component {
 
@@ -78,11 +79,12 @@ export class LayoutFull extends Component {
         })
     }
 
-
     renderPage = () => {
         switch(this.state.page){
             case 'grid':
-                return <ProductGrid handleOffers ={this.state.offers} />
+                return <ProductGrid handleOffers ={this.state.offers}
+                                    handleChange={this.handleInputChange}
+                                    />
             
             case 'create':
                 return <CreateOffer createOfferFunction={this.createOffer} />
@@ -100,7 +102,6 @@ export class LayoutFull extends Component {
     }
 
     render() {
-
         return (
             <LayoutFullContainer>
                 {this.renderPage()}

@@ -12,6 +12,7 @@ import { MuiThemeProvider, createGenerateClassName, jssPreset } from '@material-
 import { createMuiTheme } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { AppContainer } from './components/AppContainer'
+import { SignalWifi1BarLockSharp } from '@material-ui/icons'
 
 const generateClassName = createGenerateClassName()
 const jss = create({
@@ -19,7 +20,17 @@ const jss = create({
 	insertionPoint: document.getElementById('jss-insertion-point'),
 })
 
-const theme = createMuiTheme()
+const theme = createMuiTheme({
+	palette: {
+		primary: {
+			main: "#ffffff"
+		},
+		secondary: {
+			main: "#494949"
+		}
+	}
+	
+})
 
 function App() {
 	return (
