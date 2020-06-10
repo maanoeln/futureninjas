@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { ProductCard } from './ProductCard'
 import styled from 'styled-components'
 import { Filters } from '../Filters/Filters'
+import { Description, AttachMoney } from '@material-ui/icons'
 
 const ProductGridContainer = styled.div`
     background: lightgray;
@@ -31,17 +32,19 @@ export class ProductGrid extends Component {
     })
   }
 
+  getJobs() {
+    const jobs = this.props.handleOffers.map(offer => {
+      return <ProductCard key={offer.id} offer={offer} />
+    })
+    return jobs
+  }
+
   render() {
 
-    const offers = this.props.handleOffers.map(offer => {
-      return <ProductCard key={offer.id} 
-                          offer={offer} 
-              />
-    
-    })
+      const jobList = (this.props.handleOffers.length === 0 ) ? <p>Vazio</p> : this.getJobs()
 
     return (
-      <fragment>
+      <div>
         <SortingHeader>
           <p>Ofertas Cadastradas: 1500</p>
           <label>Ordenar:
@@ -57,13 +60,9 @@ export class ProductGrid extends Component {
         {this.state.filters &&
         <Filters />}
         <ProductGridContainer>
-          {this.props.handleOffers === 0 && <div>Carregando</div>}
-          {offers}
-          {/* {props === 'lista' ? {offers} : <ProductDetails handleOffers={this.props.handleOffers}
-                                                          handleId={this.props.handleOffer.id}
-                                                          /> */}
+          {jobList}
         </ProductGridContainer>
-      </fragment>
+      </div>
     )
   }
 }
