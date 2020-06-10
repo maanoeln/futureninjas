@@ -33,7 +33,8 @@ export class LayoutFull extends Component {
         description: '',
         price: '',
         payment: [],
-        date: ''
+        date: '',
+        sort: ''
     }
 
     onClickGrid = () => {
@@ -82,11 +83,27 @@ export class LayoutFull extends Component {
         })
     }
 
+    sortOffers = (offerOne, offerTwo) => {
+        const sortConfig = this.state.sort
+
+        if(sortConfig === 'ascending') {
+            return offerOne.price - offerTwo.price
+        } else if ( sortConfig === 'descending') {
+            return offerTwo.price - offerOne.price
+        } else if(sortConfig === 'nameAsc'){
+            const offerOneTitle = offerOne.title
+            const offerTwoTitle = offerTwo.title
+            
+            return offerOneTitle.localeCompare(offerTwoTitle)
+        }
+    }
+
 
     renderPage = () => {
         switch(this.state.page){
             case 'grid':
-                return <ProductGrid handleOffers ={this.state.offers} />
+                return <ProductGrid handleOffers ={this.state.offers}
+                                    theme={this.props.theme}/>
             
             case 'create':
                 return <CreateOffer valueTitle = {this.state.title}
