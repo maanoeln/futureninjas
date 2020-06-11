@@ -137,7 +137,6 @@ export class ProductGrid extends Component {
         list: false,
         header: false
       })
-      console.log(response.data)
     }).catch(e => {
       window.alert('Houve um erro ao abrir os detalhes dessa offerta!')
     })
@@ -197,7 +196,8 @@ export class ProductGrid extends Component {
           {this.state.list ? sortProducts.map(offer => { return <ProductCard key={offer.id} 
                                                                             offer={offer} 
                                                                             getDetails={this.getDetails}/>}) : <OfferDetails offerState={this.state.detailedOffer}
-                                                                                                                              handleList={this.handleList}/>}
+                                                                                                                              handleList={this.handleList}
+                                                                                                                              updateDetails={this.getDetails}/>}
         </ProductGridContainer>
 
         {this.state.list  &&
