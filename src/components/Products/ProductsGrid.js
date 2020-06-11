@@ -36,6 +36,7 @@ const FloatingFab = styled.div`
   right: 16px;
   bottom: 16px;
   opacity: 30%;
+  transition: 0.5s ease;
 
   :hover{
     transition: 0.5s ease;
