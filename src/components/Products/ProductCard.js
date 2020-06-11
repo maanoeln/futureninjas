@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import { Description, AttachMoney } from '@material-ui/icons'
 import { Card, CardActions, CardContent, Button, Typography } from '@material-ui/core'
 import axios from 'axios'
 
@@ -28,14 +27,6 @@ export class ProductCard extends Component {
   }
 
   render() {
-
-    const methods = this.props.offer.paymentMethods.map(method => {
-      if(method === 'card'){
-        return <Description />
-      } else {
-        return <AttachMoney />
-      }
-    })
 
     const offers = this.props.offer
     const raised = true
