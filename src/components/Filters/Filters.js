@@ -7,7 +7,8 @@ const FilterContainer = styled.div`
   align-items: center;
   padding: 10px;
   background: #494949;
-  border-top: 1px dashed white;
+  height: 5vh;
+  }
 `
 
 export class Filters extends Component {

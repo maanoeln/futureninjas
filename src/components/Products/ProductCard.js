@@ -5,8 +5,15 @@ import { Card, CardActions, CardContent, Button, Typography } from '@material-ui
 import axios from 'axios'
 
 const CardStyle = styled(Card)`
-  background: #f5f3fc;
-  height: 25vh;
+  background: white;
+  min-height: 20vh;
+  transform: scale(1.0);
+  transition: transform 0.8s ease-in; 
+
+  :hover {
+    transform: scale(1.05);
+    transition: transform 0.8s ease-in;
+  }
 `
 
 export class ProductCard extends Component {
@@ -41,21 +48,11 @@ export class ProductCard extends Component {
           <Typography color='primary' variant='h4' align="left">{offers.title}</Typography>
           <Typography color='secundary' variant='subtitle1' align='left'>{offers.description}</Typography>
           <Typography color='secundary' variant= 'body1' align='right'>Prazo: {offers.dueDate}</Typography>
-          {offers.value}
         </CardContent>
         <CardActions>
-          <Button variant='contained' size="small" onClick={() => this.getOfferDetails(offers.id)}>informaçoes</Button>
+          <Button color="secondary" variant='contained' size="small" onClick={() => this.getOfferDetails(offers.id)}>informaçoes</Button>
         </CardActions>
       </CardStyle>
-      // <CardContainer>
-      //   <h1>{offers.title}</h1>
-      //   <p>Descriçãp: {offers.description}</p>
-      //   <p>Valor: {offers.value}</p>
-      //   <p>Formas de pagamento:</p>
-      //   {methods}
-      //   <p>Prazo: {offers.dueDate}</p>
-      //   <button>+ informacoes</button>
-      // </CardContainer>
     )
   }
 }
