@@ -3,8 +3,8 @@ import { ProductCard } from './ProductCard'
 import { OfferDetails } from '../OfferDetails/OfferDetails'
 import styled from 'styled-components'
 import { Filters } from '../Filters/Filters'
-import { CircularProgress, Collapse, Typography, FormControlLabel, FormGroup, Checkbox } from '@material-ui/core'
-import {ExpandMore, ExpandLess, ThreeSixty} from '@material-ui/icons'
+import { CircularProgress, Collapse, Typography, FormControlLabel, FormGroup, Checkbox, Fab } from '@material-ui/core'
+import {ExpandMore, ExpandLess, KeyboardBackspaceRounded} from '@material-ui/icons'
 import axios from 'axios'
 
 const ProductGridContainer = styled.div`
@@ -30,6 +30,17 @@ const Center=styled.div`
   align-items: center;
   width: 100vw;
   min-height: 60vh;
+`
+const FloatingFab = styled.div`
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  opacity: 30%;
+
+  :hover{
+    transition: 0.5s ease;
+    opacity: 100%;
+  }
 `
 
 export class ProductGrid extends Component {
@@ -188,6 +199,14 @@ export class ProductGrid extends Component {
                                                                             getDetails={this.getDetails}/>}) : <OfferDetails offerState={this.state.detailedOffer}
                                                                                                                               handleList={this.handleList}/>}
         </ProductGridContainer>
+
+        {this.state.list  &&
+        <FloatingFab>
+          <Fab color='primary' variant="extended" onClick={this.props.handleBack} >
+            <KeyboardBackspaceRounded color='secondary'/>
+            Voltar
+          </Fab>
+        </FloatingFab> }
       </div>
     )
   }
