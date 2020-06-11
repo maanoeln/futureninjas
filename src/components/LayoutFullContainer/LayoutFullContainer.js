@@ -34,18 +34,22 @@ export class LayoutFull extends Component {
     }
 
     onClickGrid = () => {
+        this.props.showOfferBar()
         this.setState({
             page: 'grid'
         })
+        
+        console.log(this.props.offerTypesShow)
     }
 
     onClickCreate = () => {
+        this.props.showOfferBar()
         this.setState({
             page: 'create'
         })
+
     }
 
-   
     createOffer = (title, description, value, payment, date) => {
         const body = {
             title: title,

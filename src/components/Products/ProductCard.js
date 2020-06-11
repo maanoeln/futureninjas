@@ -20,9 +20,7 @@ export class ProductCard extends Component {
 
   getOfferDetails = id => {
     axios.get(`https://us-central1-labenu-apis.cloudfunctions.net/futureNinjasOne/jobs/${id}`).then(response =>{
-      this.setState({
-        offers: response.data.jobs
-      })
+      console.log(response.data)
     }).catch(e => {
       window.alert('Houve um erro ao abrir a oferta!')
     })
@@ -50,7 +48,7 @@ export class ProductCard extends Component {
           <Typography color='secondary' variant= 'body1' align='right'>Prazo: {offers.dueDate}</Typography>
         </CardContent>
         <CardActions>
-          <Button color="secondary" variant='contained' size="small" onClick={() => this.getOfferDetails(offers.id)}>informaçoes</Button>
+          <Button color="secondary" variant='contained' size="small" onClick={() => this.props.getDetails(offers.id)}>informaçoes</Button>
         </CardActions>
       </CardStyle>
     )
