@@ -8,11 +8,11 @@ const CardStyle = styled(Card)`
   background: white;
   min-height: 20vh;
   transform: scale(1.0);
-  transition: transform 0.8s ease-in; 
+  transition: 0.3s; 
 
   :hover {
     transform: scale(1.05);
-    transition: transform 0.8s ease-in;
+    transition: 0.3s ease-in;
   }
 `
 
@@ -46,8 +46,8 @@ export class ProductCard extends Component {
       <CardStyle elevation={raised ? 8:1}>
         <CardContent>
           <Typography color='primary' variant='h4' align="left">{offers.title}</Typography>
-          <Typography color='secundary' variant='subtitle1' align='left'>{offers.description}</Typography>
-          <Typography color='secundary' variant= 'body1' align='right'>Prazo: {offers.dueDate}</Typography>
+          <Typography color='secondary' variant='subtitle1' align='left'>{offers.description}</Typography>
+          <Typography color='secondary' variant= 'body1' align='right'>Prazo: {offers.dueDate}</Typography>
         </CardContent>
         <CardActions>
           <Button color="secondary" variant='contained' size="small" onClick={() => this.getOfferDetails(offers.id)}>informaçoes</Button>
