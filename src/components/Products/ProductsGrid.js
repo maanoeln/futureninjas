@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
 import { ProductCard } from './ProductCard'
+import { OfferDetails } from '../OfferDetails/OfferDetails'
 import styled from 'styled-components'
 import { Filters } from '../Filters/Filters'
 import { CircularProgress, Collapse, Typography, FormControlLabel, FormGroup, Checkbox } from '@material-ui/core'
-import {ExpandMore, ExpandLess} from '@material-ui/icons'
+import {ExpandMore, ExpandLess, ThreeSixty} from '@material-ui/icons'
+import axios from 'axios'
 
 const ProductGridContainer = styled.div`
     background: #f5f3fc;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: ${(props) => props.show ? 'repeat(4, 1fr)' : '1fr'};
     grid-auto-flow: auto;
     padding: 16px;
     gap: 16px;
@@ -27,13 +29,16 @@ const Center=styled.div`
   justify-content: center;
   align-items: center;
   width: 100vw;
+  min-height: 60vh;
 `
 
 export class ProductGrid extends Component {
+  
   state = {
     showFilters: false,
     icon: true,
     list: true,
+    header: true,
     lowPrice: false,
     highPrice: false,
     name: false,
@@ -42,7 +47,8 @@ export class ProductGrid extends Component {
     filters: {
         valMin: null,
         valMax: null
-    }
+    },
+    detailedOffer: []
   }
 
 
@@ -79,7 +85,6 @@ export class ProductGrid extends Component {
 
   sortOffers = (offerOne, offerTwo) => {
     
-
     if(this.state.lowPrice) {
         return offerOne.value - offerTwo.value
     } else if ( this.state.highPrice) {
@@ -92,7 +97,7 @@ export class ProductGrid extends Component {
     }
 }
 
-getFilteredProducts () {
+  getFilteredProducts () {
 
     const { inputNameValue, inputDescValue, filters } = this.state
 
@@ -114,6 +119,26 @@ getFilteredProducts () {
     return filteredOffers
 }
 
+  getDetails = id => {
+    axios.get(`https://us-central1-labenu-apis.cloudfunctions.net/futureNinjasOne/jobs/${id}`).then(response=> {
+      this.setState({
+        detailedOffer: response.data,
+        list: false,
+        header: false
+      })
+      console.log(response.data)
+    }).catch(e => {
+      window.alert('Houve um erro ao abrir os detalhes dessa offerta!')
+    })
+  }
+
+  handleList = () => {
+    this.setState({
+      list: true,
+      header: true
+    })
+  }
+
   render() {
 
     const filteredOffers = this.getFilteredProducts()
@@ -122,9 +147,9 @@ getFilteredProducts () {
     const disabledB = this.state.lowPrice || this.state.name ? true: false
     const disabledC = this.state.lowPrice || this.state.highPrice ? true: false
     const arrow = this.state.showFilters ? <ExpandLess color='primary' onClick={this.onClickFilter} /> : <ExpandMore color='primary' onClick={this.onClickFilter} />
-
     return (
       <div>
+        {this.state.header &&
         <SortingHeader>
 
         <Typography color='secondary' variant='h5' align="left">Ofertas Cadastradas: {sortProducts.length}</Typography>
@@ -144,7 +169,7 @@ getFilteredProducts () {
           />
         </FormGroup>
           {arrow}
-        </SortingHeader>
+        </SortingHeader>}
 
         <Collapse in={this.state.showFilters}>
           <Filters  handleChange={this.handleFilterTextValue}
@@ -156,11 +181,12 @@ getFilteredProducts () {
           />
         </Collapse>
 
-        <ProductGridContainer>
+        <ProductGridContainer show={this.state.list}>
           {this.props.handleOffers.length === 0 && <Center><CircularProgress /></Center>}
-          {sortProducts.map(offer => {
-            return <ProductCard key={offer.id} offer={offer}/>
-          })}
+          {this.state.list ? sortProducts.map(offer => { return <ProductCard key={offer.id} 
+                                                                            offer={offer} 
+                                                                            getDetails={this.getDetails}/>}) : <OfferDetails offerState={this.state.detailedOffer}
+                                                                                                                              handleList={this.handleList}/>}
         </ProductGridContainer>
       </div>
     )

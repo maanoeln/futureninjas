@@ -12,12 +12,24 @@ const WrapAll = styled.div`
 `
 
 export class AppContainer extends Component {
+
+  state = {
+    offerTypesShow: true
+  }
+
+  hideOfferBar = () => {
+    this.setState({
+      offerTypesShow: !this.state.offerTypesShow
+    })
+  }
+
   render() {
     return (
       <WrapAll>
         <Header />
-        <OfferTypes />
-        <LayoutFull />
+        {this.state.offerTypesShow &&
+        <OfferTypes />}
+        <LayoutFull showOfferBar={this.hideOfferBar}/>
         <Footer />
       </WrapAll>
     )
