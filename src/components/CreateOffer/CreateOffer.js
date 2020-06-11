@@ -71,7 +71,7 @@ export class CreateOffer extends Component {
     handleCheckboxesChange = name => event => {
         
         this.setState({ [name]: event.target.checked })
-        if(this.state[name] === true) {
+        if(event.target.checked === true) {
             this.setState({payment: [...this.state.payment, event.target.value]})
         } else {
             let paymentMethods = [...this.state.payment]
@@ -85,6 +85,7 @@ export class CreateOffer extends Component {
       };
 
     handleClickButton = () => {
+        console.log(this.state)
         this.props.createOfferFunction(
             this.state.title, 
             this.state.description, 
