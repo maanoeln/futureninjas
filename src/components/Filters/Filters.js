@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import TextField from '@material-ui/core/TextField';
+import { Typography } from '@material-ui/core';
 
 const FilterContainer = styled.div`
   display: flex;  
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
-  background: #494949;
-  height: 5vh;
-  }
+  padding: 16px;
+  background: #f5f3fc;
+  min-height: 5vh;
 `
 
 export class Filters extends Component {
@@ -36,26 +37,12 @@ export class Filters extends Component {
   render() {
     return (
       <FilterContainer>
-        <h2>Filtros:</h2>
-        <label>
-          Valor minimo:
-          <input name='valMin' min={0} onChange={this.returnUpdatedMinValue} />
-        </label>
+        <Typography color='secondary' variant='h6'>Filtros:</Typography>
 
-        <label>
-          Valor máximo:
-          <input name='valMax' onChange={this.returnUpdatedMaxValue} />
-        </label>
-
-        <label>
-          Título:
-          <input name='inputNameValue' value={this.props.titleValue} onChange={this.props.handleChange} />
-        </label>
-
-        <label>
-          Descrição:
-          <input name='inputDescValue' value={this.props.descValue} onChange={this.props.handleChange} />
-        </label>
+        <TextField size='small' variant='outlined' label='Valor mínimo' onChange={this.returnUpdatedMinValue} min={0} />
+        <TextField size='small' variant='outlined' label='Valor máximo' onChange={this.returnUpdatedMaxValue} />
+        <TextField name='inputNameValue' size='small' color="secondary" variant='outlined' label='Título' value={this.props.titleValue} onChange={this.props.handleChange} />
+        <TextField name='inputDescValue' size='small' color="secondary" variant='outlined' label='Descrição' value={this.props.descValue} onChange={this.props.handleChange} />
         
       </FilterContainer>
     )
