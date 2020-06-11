@@ -2,49 +2,64 @@ import React, { Component } from "react";
 import styled from "styled-components";
 
 import TextFields from "@material-ui/core/TextField";
-import { withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
+import {LocalOffer, Home} from "@material-ui/icons";
+import {FormControlLabel, FormGroup, Checkbox, Typography, Button} from '@material-ui/core'
 
 const BigContainer = styled.div`
   background-color: #F5F3FC;
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 16px;
 `;
+
 const CreateOfferContainer = styled.div`
   background: white;
   display: flex;
   flex-direction: column;
-  justify-content: space-space-between;
   align-items: center;
-  width: 600px;
+  width: 40vw;
   height: auto;
   border-radius: 20px;
-  border-color: black;
+  border: 1px solid black;
   box-shadow: 2px 2px 20px 1px rgba(0, 0, 0, 0.2);
   margin-top: 20px;
-  margin-bottom: 100px;
-  padding-bottom: 20px;
+  padding: 16px;
 `;
 
 const Payment = styled.span`
   display: flex;
   flex-direction: column;
-
-  padding: 30px;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
 `;
 
-const Date = styled.span`
+const PaymentMethods = styled.span`
   display: flex;
-  flex-direction: column;
-
-  padding: 30px;
+  width: 32vw;
+  padding-bottom: 16px;
 `;
-
-const PaymentAndDate = styled.div`
+const ButtonBigContainer = styled.div`
+  width: 100%;
   display: flex;
-`;
+  justify-content: flex-end;
+  margin-top: 8px;
+  padding: 16px;
+`
+const ButtonsContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 170px;
+  opacity: 30%;
+  transition: 0.5s ease;
+
+  :hover{
+    transition: 0.5s ease;
+    opacity: 100%;
+  }
+`
 
 export class CreateOffer extends Component {
     state = {
@@ -55,7 +70,8 @@ export class CreateOffer extends Component {
         date: '',
         credit: false,
         debit: false,
-        cash: false
+        cash: false, 
+        bill: false
     }
 
     handleInputChange = (event) => {
@@ -102,16 +118,17 @@ export class CreateOffer extends Component {
             date: '',
             credit: false,
             debit: false,
-            cash: false
+            cash: false,
+            bill: false
         })
     }
 
   render() {
     return (
       <BigContainer>
-        <h2>Espaço do cliente</h2>
+        <Typography variant='h3' color='primary'>Espaço do cliente</Typography>
         <CreateOfferContainer>
-          <h3>Cadastre nova oferta</h3>
+          <Typography variant='title' color='secondary'>Cadastre nova oferta</Typography>
           <TextFields
             margin="normal"
             label="Titulo"
@@ -132,69 +149,65 @@ export class CreateOffer extends Component {
           <TextFields
             margin="normal"
             label="Valor"
+            min={0}
             variant="outlined"
             type="number"
             name="price"
             value={this.state.price}
             onChange={this.handleInputChange}
           />
-          <PaymentAndDate>
+          <TextFields
+            variant="outlined"
+            margin="normal"
+            name="date"
+            label="Prazo"
+            value={this.state.date}
+            onChange={this.handleInputChange}
+          />
             <Payment>
-              <label>Formas de Pagamento:</label>
-              <label>
-                Crédito
-                <input
-                  type="checkbox"
-                  checked={this.state.credit}
-                  value="Crédito"
-                  onChange={this.handleCheckboxesChange('credit')}
-                />
-              </label>
-              <label>
-                Débito
-                <input
-                  type="checkbox"
-                  checked={this.state.debit}
-                  value="Débito"
-                  onChange={this.handleCheckboxesChange('debit')}
-                />
-              </label>
-              <label>
-                Dinheiro
-                <input
-                  type="checkbox"
-                  checked={this.state.cash}
-                  name="payment"
-                  value="Dinheiro"
-                  onChange={this.handleCheckboxesChange('cash')}
-                />
-              </label>
+              <Typography variant="subtitle1" color='primary'>Formas de Pagamento:</Typography>
+              <PaymentMethods>
+                <FormGroup row>
+                  <FormControlLabel
+                    control={<Checkbox checked={this.state.credit} onClick={this.handleCheckboxesChange('credit')} value="Crédito" />}
+                    label="Crédito"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox  checked={this.state.debit} onChange={this.handleCheckboxesChange('debit')} value="Débito" />}
+                    label="Débito"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox checked={this.state.cash} onChange={this.handleCheckboxesChange('cash')} name="payment" value='Dinheiro' />}
+                    label="Transferência"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox checked={this.state.bill} onChange={this.handleCheckboxesChange('bill')} value='Boleto'/>}
+                    label="Boleto"
+                  />
+                </FormGroup>
+              </PaymentMethods>
             </Payment>
-            <Date>
-              <label>Prazo:</label>
-              <TextFields
-                variant="outlined"
-                margin="normal"
-                type="date"
-                name="date"
-                value={this.state.date}
-                onChange={this.handleInputChange}
-              />
-            </Date>
-          </PaymentAndDate>
 
           <div>
             <Button
               onClick={this.handleClickButton}
               color="secondary"
               variant="contained"
-              size="medium"
+              size="large"
               margin-bottom="normal"
             >
               Criar oferta
             </Button>
           </div>
         </CreateOfferContainer>
+        <ButtonBigContainer>
+          <ButtonsContainer>
+            <Button color="primary" variant='contained' size="medium" ><Home color='secondary' /> Pagina Inicial</Button>
+          </ButtonsContainer>
+          <ButtonsContainer>
+            <Button color="primary" variant='contained' size="medium" >Ofertas  <LocalOffer color='secondary' /></Button>
+          </ButtonsContainer>
+        </ButtonBigContainer>
       </BigContainer>
     );
   }

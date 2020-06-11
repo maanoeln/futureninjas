@@ -65,7 +65,8 @@ export class LayoutFull extends Component {
         axios.post('https://us-central1-labenu-apis.cloudfunctions.net/futureNinjasOne/jobs', body
         )
         .then((response) => {
-            
+            window.alert('Oferta criada com sucesso! Boa sorte.')
+            this.getOffer()
         })
         .catch((error) => {
             window.alert('Erro ao cadastrar oferta')
@@ -74,6 +75,10 @@ export class LayoutFull extends Component {
     }
     
     componentDidMount() {
+        this.getOffer()
+    }
+
+    componentDidUpdate() {
         this.getOffer()
     }
 

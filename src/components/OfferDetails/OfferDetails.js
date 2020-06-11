@@ -25,6 +25,7 @@ const BackContainer = styled.div`
     display: flex;
     justify-content: flex-end;
     opacity: 30%;
+    transition: 0.5s ease;
 
     :hover{
         transition: 0.5s ease;
@@ -76,10 +77,12 @@ export class OfferDetails extends Component {
         const details = this.props.offerState
         
         const methods = details.paymentMethods.map(method => {
-            if(method === 'card'){
+            if(method === 'Crédito' || method === 'Débito'){
                 return <CreditCard color='primary' />
-            } else {
+            } else if(method === 'Dinheiro') {
                 return <AttachMoney color= 'primary' />
+            }else {
+                return <div></div>
             }
         })
 
