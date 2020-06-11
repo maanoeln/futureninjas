@@ -8,11 +8,11 @@ const CardStyle = styled(Card)`
   background: white;
   min-height: 20vh;
   transform: scale(1.0);
-  transition: transform 0.8s ease-in; 
+  transition: 0.4s ; 
 
   :hover {
     transform: scale(1.05);
-    transition: transform 0.8s ease-in;
+    transition: 0.4s;
   }
 `
 
