@@ -8,7 +8,7 @@ import { Footer } from './Footer/Footer'
 const WrapAll = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: auto;
+  min-height: 100%;
 `
 
 export class AppContainer extends Component {
