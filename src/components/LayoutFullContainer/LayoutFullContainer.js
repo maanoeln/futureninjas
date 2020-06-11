@@ -28,9 +28,15 @@ const HomePageCard = styled.div`
 export class LayoutFull extends Component {
 
     state = {
-        page: 'inicial',
+        page: 'initial',
         offers: [],
 
+    }
+    
+    onClickBack = () => {
+        this.setState({
+            page: 'initial'
+        })
     }
 
     onClickGrid = () => {
@@ -38,8 +44,6 @@ export class LayoutFull extends Component {
         this.setState({
             page: 'grid'
         })
-        
-        console.log(this.props.offerTypesShow)
     }
 
     onClickCreate = () => {
@@ -88,6 +92,7 @@ export class LayoutFull extends Component {
             case 'grid':
                 return <ProductGrid handleOffers ={this.state.offers}
                                     handleChange={this.handleInputChange}
+                                    handleBack={this.onClickBack}
                                     />
             
             case 'create':
