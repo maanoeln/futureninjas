@@ -99,7 +99,7 @@ export class CreateOffer extends Component {
             price: '',
             payment: [],
             date: '',
-            credit: true,
+            credit: false,
             debit: false,
             cash: false
         })
@@ -144,27 +144,28 @@ export class CreateOffer extends Component {
                 Crédito
                 <input
                   type="checkbox"
-                  name="payment"
-                  value={this.state.payment}
-                  onChange={this.handleInputChange}
+                  checked={this.state.credit}
+                  value="Crédito"
+                  onChange={this.handleCheckboxesChange('credit')}
                 />
               </label>
               <label>
                 Débito
                 <input
                   type="checkbox"
-                  name="payment"
-                  value={this.state.payment}
-                  onChange={this.handleInputChange}
+                  checked={this.state.debit}
+                  value="Débito"
+                  onChange={this.handleCheckboxesChange('debit')}
                 />
               </label>
               <label>
                 Dinheiro
                 <input
                   type="checkbox"
+                  checked={this.state.cash}
                   name="payment"
-                  value={this.state.payment}
-                  onChange={this.handleInputChange}
+                  value="Dinheiro"
+                  onChange={this.handleCheckboxesChange('cash')}
                 />
               </label>
             </Payment>
