@@ -2,11 +2,17 @@ import React, { Component } from "react";
 import styled from "styled-components";
 
 import TextFields from "@material-ui/core/TextField";
-import {LocalOffer, Home} from "@material-ui/icons";
-import {FormControlLabel, FormGroup, Checkbox, Typography, Button} from '@material-ui/core'
+import { LocalOffer, Home } from "@material-ui/icons";
+import {
+  FormControlLabel,
+  FormGroup,
+  Checkbox,
+  Typography,
+  Button,
+} from "@material-ui/core";
 
 const BigContainer = styled.div`
-  background-color: #F5F3FC;
+  background-color: #f5f3fc;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,8 +27,8 @@ const CreateOfferContainer = styled.div`
   align-items: center;
   width: 40vw;
   height: auto;
-  border-radius: 20px;
-  border: 1px solid black;
+  border-radius: 10px;
+
   box-shadow: 2px 2px 20px 1px rgba(0, 0, 0, 0.2);
   margin-top: 20px;
   padding: 16px;
@@ -36,18 +42,13 @@ const Payment = styled.span`
   padding: 8px;
 `;
 
-const PaymentMethods = styled.span`
-  display: flex;
-  width: 32vw;
-  padding-bottom: 16px;
-`;
 const ButtonBigContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-end;
   margin-top: 8px;
   padding: 16px;
-`
+`;
 const ButtonsContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -55,80 +56,85 @@ const ButtonsContainer = styled.div`
   opacity: 30%;
   transition: 0.5s ease;
 
-  :hover{
+  :hover {
     transition: 0.5s ease;
     opacity: 100%;
   }
-`
-
+`;
+const TextDecoration = styled.a`
+  color: white;
+  text-decoration: none;
+`;
 export class CreateOffer extends Component {
-    state = {
-        title: '',
-        description: '',
-        price: '',
-        payment: [],
-        date: '',
-        credit: false,
-        debit: false,
-        cash: false, 
-        bill: false
+  state = {
+    title: "",
+    description: "",
+    price: "",
+    payment: [],
+    date: "",
+    credit: false,
+    debit: false,
+    cash: false,
+    bill: false,
+  };
+
+  handleInputChange = (event) => {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+    this.setState({
+      [name]: value,
+    });
+    console.log(this.state);
+  };
+
+  handleCheckboxesChange = (name) => (event) => {
+    this.setState({ [name]: event.target.checked });
+    if (event.target.checked === true) {
+      this.setState({ payment: [...this.state.payment, event.target.value] });
+    } else {
+      let paymentMethods = [...this.state.payment];
+      let index = paymentMethods.indexOf(event.target.value);
+      if (index > -1) {
+        paymentMethods.splice(index, 1);
+        this.setState({ payment: paymentMethods });
+      }
     }
+  };
 
-    handleInputChange = (event) => {
-        const target = event.target
-        const value = target.value
-        const name = target.name
-        this.setState({
-            [name]: value
-        })
-        console.log(this.state)
-    }
+  handleClickButton = () => {
+    console.log(this.state);
+    this.props.createOfferFunction(
+      this.state.title,
+      this.state.description,
+      this.state.price,
+      this.state.payment,
+      this.state.date
+    );
 
-    handleCheckboxesChange = name => event => {
-        
-        this.setState({ [name]: event.target.checked })
-        if(event.target.checked === true) {
-            this.setState({payment: [...this.state.payment, event.target.value]})
-        } else {
-            let paymentMethods = [...this.state.payment]
-            let index = paymentMethods.indexOf(event.target.value)
-            if(index > -1) {
-                paymentMethods.splice(index, 1)
-                this.setState({payment: paymentMethods})
-
-            }
-        }
-      };
-
-    handleClickButton = () => {
-        console.log(this.state)
-        this.props.createOfferFunction(
-            this.state.title, 
-            this.state.description, 
-            this.state.price, 
-            this.state.payment, 
-            this.state.date
-            )
-
-        this.setState({
-            title: '',
-            description: '',
-            price: '',
-            payment: [],
-            date: '',
-            credit: false,
-            debit: false,
-            cash: false,
-            bill: false
-        })
-    }
+    this.setState({
+      title: "",
+      description: "",
+      price: "",
+      payment: [],
+      date: "",
+      credit: false,
+      debit: false,
+      cash: false,
+      bill: false,
+    });
+  };
 
   render() {
     return (
       <BigContainer>
-        <Typography variant='h3' color='primary'>Espaço do cliente</Typography>
+        <Typography variant="h5" color="primary">
+          Espaço do cliente
+        </Typography>
         <CreateOfferContainer>
-          <Typography variant='title' color='secondary'>Cadastre nova oferta</Typography>
+          <Typography variant="title" color="secondary">
+            Cadastre nova oferta
+          </Typography>
           <TextFields
             margin="normal"
             label="Titulo"
@@ -164,29 +170,56 @@ export class CreateOffer extends Component {
             value={this.state.date}
             onChange={this.handleInputChange}
           />
-            <Payment>
-              <Typography variant="subtitle1" color='primary'>Formas de Pagamento:</Typography>
-              <PaymentMethods>
-                <FormGroup row>
-                  <FormControlLabel
-                    control={<Checkbox checked={this.state.credit} onClick={this.handleCheckboxesChange('credit')} value="Crédito" />}
-                    label="Crédito"
-                  />
-                  <FormControlLabel
-                    control={<Checkbox  checked={this.state.debit} onChange={this.handleCheckboxesChange('debit')} value="Débito" />}
-                    label="Débito"
-                  />
-                  <FormControlLabel
-                    control={<Checkbox checked={this.state.cash} onChange={this.handleCheckboxesChange('cash')} name="payment" value='Dinheiro' />}
-                    label="Transferência"
-                  />
-                  <FormControlLabel
-                    control={<Checkbox checked={this.state.bill} onChange={this.handleCheckboxesChange('bill')} value='Boleto'/>}
-                    label="Boleto"
-                  />
-                </FormGroup>
-              </PaymentMethods>
-            </Payment>
+          <Payment>
+            <Typography variant="subtitle1" color="primary">
+              Formas de Pagamento:
+            </Typography>
+            <div>
+              <FormGroup row>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={this.state.credit}
+                      onClick={this.handleCheckboxesChange("credit")}
+                      value="Crédito"
+                    />
+                  }
+                  label="Crédito"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={this.state.debit}
+                      onChange={this.handleCheckboxesChange("debit")}
+                      value="Débito"
+                    />
+                  }
+                  label="Débito"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={this.state.cash}
+                      onChange={this.handleCheckboxesChange("cash")}
+                      name="payment"
+                      value="Dinheiro"
+                    />
+                  }
+                  label="Transferência"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={this.state.bill}
+                      onChange={this.handleCheckboxesChange("bill")}
+                      value="Boleto"
+                    />
+                  }
+                  label="Boleto"
+                />
+              </FormGroup>
+            </div>
+          </Payment>
 
           <div>
             <Button
@@ -202,10 +235,17 @@ export class CreateOffer extends Component {
         </CreateOfferContainer>
         <ButtonBigContainer>
           <ButtonsContainer>
-            <Button color="primary" variant='contained' size="medium" ><Home color='secondary' /> Pagina Inicial</Button>
+            <Button color="primary" variant="contained" size="medium">
+              <Home color="secondary" />{" "}
+              <TextDecoration href="/"> Pagina Inicial</TextDecoration>
+            </Button>
           </ButtonsContainer>
           <ButtonsContainer>
-            <Button color="primary" variant='contained' size="medium" >Ofertas  <LocalOffer color='secondary' /></Button>
+            {" "}
+            {/* <Button color="primary" variant="contained" size="medium">
+              {" "}
+              Ofertas <LocalOffer color="secondary" />
+            </Button> */}
           </ButtonsContainer>
         </ButtonBigContainer>
       </BigContainer>
