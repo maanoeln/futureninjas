@@ -11,6 +11,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import axios from "axios";
+import { LeakAddTwoTone } from "@material-ui/icons";
 
 const LayoutFullContainer = styled.div`
   display: flex;
@@ -60,6 +61,7 @@ export class LayoutFull extends Component {
   };
 
   onClickGrid = () => {
+    this.shuffleJobs()
     this.props.showOfferBar();
     this.setState({
       page: "grid",
@@ -94,15 +96,14 @@ export class LayoutFull extends Component {
         window.alert("Erro ao cadastrar oferta");
         console.log(error);
       });
+
+      this.getOffer()
   };
 
   componentDidMount() {
     this.getOffer();
   }
 
-  componentDidUpdate() {
-    this.getOffer();
-  }
 
   getOffer = () => {
     axios
@@ -110,6 +111,8 @@ export class LayoutFull extends Component {
         "https://us-central1-labenu-apis.cloudfunctions.net/futureNinjasOne/jobs"
       )
       .then((response) => {
+          console.log(response.data.jobs)
+    
         this.setState({
           offers: response.data.jobs,
         });
@@ -118,6 +121,13 @@ export class LayoutFull extends Component {
         window.alert("Houve um erro ao carregar os dados.");
       });
   };
+
+  shuffleJobs = () => {
+    let allJobs = this.state.offers
+    let shuffledJobs = allJobs.sort((job1, job2) => Math.random() - Math.random())
+    this.setState({offers: shuffledJobs})
+  }
+  
 
   renderPage = () => {
     switch (this.state.page) {
@@ -137,7 +147,7 @@ export class LayoutFull extends Component {
         return (
           <HomePageContainer>
             <CardStyle>
-              <CardContent onClick={this.onClickCreate}>
+              <CardContent>
                 <Typography color="secondary" variant="h5" align="center">
                   Sou Cliente
                 </Typography>
@@ -153,6 +163,7 @@ export class LayoutFull extends Component {
                     color="secondary"
                     variant="contained"
                     size="large"
+                    onClick={this.onClickCreate}
                   >
                     CADASTRE UMA OFERTA
                   </OfferButton>
@@ -161,7 +172,7 @@ export class LayoutFull extends Component {
             </CardStyle>
 
             <CardStyle>
-              <CardContent onClick={this.onClickGrid}>
+              <CardContent>
                 <Typography color="secondary" variant="h5" align="center">
                   Sou Fornecedor
                 </Typography>
@@ -169,13 +180,14 @@ export class LayoutFull extends Component {
                   Consiga mais clientes direto do seu celular.
                 </Typography>
                 <Typography color="primary" variant="body3">
-                  Veja todos os serviços que estão disponíveis para você!
+                  Veja os serviços que estão disponíveis para você!
                 </Typography>
                 <CardActions>
                   <OfferButton
                     color="secondary"
                     variant="contained"
                     size="large"
+                    onClick={this.onClickGrid}
                   >
                     VEJA AS OFERTAS
                   </OfferButton>
