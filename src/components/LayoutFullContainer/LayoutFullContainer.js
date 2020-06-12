@@ -136,7 +136,7 @@ export class LayoutFull extends Component {
         return (
           <HomePageContainer>
             <CardStyle>
-              <CardContent onClick={this.onClickCreate}>
+              <CardContent>
                 <Typography color="secondary" variant="h5" align="center">
                   Sou Cliente
                 </Typography>
@@ -152,6 +152,7 @@ export class LayoutFull extends Component {
                     color="secondary"
                     variant="contained"
                     size="large"
+                    onClick={this.onClickCreate}
                   >
                     CADASTRE UMA OFERTA
                   </OfferButton>
@@ -160,7 +161,7 @@ export class LayoutFull extends Component {
             </CardStyle>
 
             <CardStyle>
-              <CardContent onClick={this.onClickGrid}>
+              <CardContent>
                 <Typography color="secondary" variant="h5" align="center">
                   Sou Fornecedor
                 </Typography>
@@ -168,13 +169,14 @@ export class LayoutFull extends Component {
                   Consiga mais clientes direto do seu celular.
                 </Typography>
                 <Typography color="primary" variant="body3">
-                  Veja todos os serviços que estão disponíveis para você!
+                  Veja os serviços que estão disponíveis para você!
                 </Typography>
                 <CardActions>
                   <OfferButton
                     color="secondary"
                     variant="contained"
                     size="large"
+                    onClick={this.onClickGrid}
                   >
                     VEJA AS OFERTAS
                   </OfferButton>
