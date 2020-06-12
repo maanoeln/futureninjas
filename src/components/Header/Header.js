@@ -5,8 +5,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import ninja from './ImgNinja.png'
-import { LayoutFull } from '../LayoutFullContainer/LayoutFullContainer'
-import { PauseCircleFilledTwoTone } from '@material-ui/icons';
 
 const typographyColor = createMuiTheme({
     palette: {
@@ -37,10 +35,10 @@ export class Header extends Component {
     return (
       <AppBar position="relative">
           <HeaderContainer>
-              <a href="/"><Image src={ninja} alt="Logo"/></a>
-             <MuiThemeProvider theme={typographyColor}>
-                  <Typography color="secondary" variant='h4'>FutureNinjas</Typography>
-             </MuiThemeProvider>
+            <a href="/"><Image src={ninja} alt="Logo"/></a>
+            <MuiThemeProvider theme={typographyColor}>
+              <Typography color="secondary" variant='h4'>FutureNinjas</Typography>
+            </MuiThemeProvider>
           </HeaderContainer>
       </AppBar>
     )

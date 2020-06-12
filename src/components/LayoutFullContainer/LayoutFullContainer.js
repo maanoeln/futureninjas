@@ -57,6 +57,7 @@ export class LayoutFull extends Component {
     this.setState({
       page: "initial",
     });
+    this.props.showOfferBar()
   };
 
   onClickGrid = () => {
@@ -140,7 +141,7 @@ export class LayoutFull extends Component {
         );
 
       case "create":
-        return <CreateOffer createOfferFunction={this.createOffer} />;
+        return <CreateOffer createOfferFunction={this.createOffer}/>;
 
       default:
         return (
