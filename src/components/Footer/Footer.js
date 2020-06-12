@@ -11,26 +11,33 @@ const StyledTipography = styled(Typography)`
 `
 
 const FooterContainer = styled(TableFooter)`
-    
-    background: white;
-    color: #8762D1;
-    height: 5vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0 10px;
+  background: white;
+  color: #8762D1;
+  min-height: 5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
 `
+const IconContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 20%;
+`
+
 export class Footer extends Component {
     render() {
         return (
             <>
                 <FooterContainer>
-                  <Facebook />
-                  <Instagram />
-                  <YouTube />
-                  <LinkedIn />
-                  <WhatsApp />
-                  </FooterContainer>
+                  <IconContainer>
+                    <Facebook fontSize='large' />
+                    <Instagram fontSize='large'  />
+                    <YouTube fontSize='large'  />
+                    <LinkedIn fontSize='large'  />
+                    <WhatsApp fontSize='large'  />
+                  </IconContainer>
+                </FooterContainer>
                 <FooterContainer>  
                   <StyledTipography  variant='h8' >
                     ©2020, FutureNinjas Serviços de Internet. CNPJ 00.000.000/0000-00 - Av. Labenu, 001 - Labenu - Brasil.

@@ -202,8 +202,8 @@ export class ProductGrid extends Component {
         </ProductGridContainer>
 
         {this.state.list  &&
-        <FloatingFab>
-          <Fab color='primary' variant="extended" onClick={this.props.handleBack} >
+        <FloatingFab onClick={this.props.handleBack}>
+          <Fab color='primary' variant="extended">
             <KeyboardBackspaceRounded color='secondary'/>
             Voltar
           </Fab>
