@@ -41,7 +41,7 @@ const FloatingFab = styled.div`
   :hover{
     transition: 0.5s ease;
     opacity: 100%;
-  }
+  } 
 `
 
 export class ProductGrid extends Component {
