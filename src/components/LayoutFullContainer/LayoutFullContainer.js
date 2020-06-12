@@ -11,6 +11,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import axios from "axios";
+import { LeakAddTwoTone } from "@material-ui/icons";
 
 const LayoutFullContainer = styled.div`
   display: flex;
@@ -59,6 +60,8 @@ export class LayoutFull extends Component {
   };
 
   onClickGrid = () => {
+    this.shuffleJobs()
+    console.log(this.state.offers)
     this.props.showOfferBar();
     this.setState({
       page: "grid",
@@ -93,15 +96,14 @@ export class LayoutFull extends Component {
         window.alert("Erro ao cadastrar oferta");
         console.log(error);
       });
+
+      this.getOffer()
   };
 
   componentDidMount() {
     this.getOffer();
   }
 
-  componentDidUpdate() {
-    this.getOffer();
-  }
 
   getOffer = () => {
     axios
@@ -109,6 +111,8 @@ export class LayoutFull extends Component {
         "https://us-central1-labenu-apis.cloudfunctions.net/futureNinjasOne/jobs"
       )
       .then((response) => {
+          console.log(response.data.jobs)
+    
         this.setState({
           offers: response.data.jobs,
         });
@@ -117,6 +121,13 @@ export class LayoutFull extends Component {
         window.alert("Houve um erro ao carregar os dados.");
       });
   };
+
+  shuffleJobs = () => {
+    let allJobs = this.state.offers
+    let shuffledJobs = allJobs.sort((job1, job2) => Math.random() - Math.random())
+    this.setState({offers: shuffledJobs})
+  }
+  
 
   renderPage = () => {
     switch (this.state.page) {
