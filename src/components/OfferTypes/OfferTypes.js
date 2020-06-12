@@ -1,26 +1,68 @@
-import React, { Component } from 'react'
-import styled from 'styled-components'
+import React, { Component } from "react";
+import styled from "styled-components";
+
+import {
+  Card,
+  CardActions,
+  CardContent,
+  Button,
+  Typography,
+} from "@material-ui/core";
+
+import axios from "axios";
 
 const OfferTypesContainer = styled.div`
-    background: lightgoldenrodyellow;
-    border: 1px solid black;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    height: 8vh;
+  background: white;
+  border-radius: 2px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 8vh;
+  font-size: small;
 
-    p {
-        align-self: center;
-    }
-`
+  div p {
+    align-self: center;
+    color: purple;
+  }
+`;
+
+const OfferButton = styled(Button)`
+  margin: auto;
+`;
+
 export class OfferTypes extends Component {
+  state = {
+    offers: [],
+  };
+
+  componentDidMount = () => {
+    axios
+      .get(
+        "https://us-central1-labenu-apis.cloudfunctions.net/futureNinjasOne/jobs"
+      )
+      .then((response) => {
+        this.setState({
+          offers: response.data.jobs,
+        });
+      })
+      .catch((error) => {
+        alert("Erro");
+      });
+  };
+
   render() {
     return (
       <OfferTypesContainer>
-          <p>Serviço 1</p>
-          <p>Serviço 2</p>
-          <p>Serviço 3</p>
+        {this.state.offers.map((offer) => {
+          return (
+            <div key={offer.id}>
+              <OfferButton color="secondary" size="small">
+                {offer.title}
+              </OfferButton>
+            </div>
+          );
+        })}
       </OfferTypesContainer>
-    )
+    );
   }
 }
