@@ -61,7 +61,6 @@ export class LayoutFull extends Component {
 
   onClickGrid = () => {
     this.shuffleJobs()
-    console.log(this.state.offers)
     this.props.showOfferBar();
     this.setState({
       page: "grid",
