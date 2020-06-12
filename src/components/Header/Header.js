@@ -10,7 +10,7 @@ import { PauseCircleFilledTwoTone } from '@material-ui/icons';
 
 const typographyColor = createMuiTheme({
     palette: {
-      primary: {
+      secondary: {
         main: "#FFFFFF"
       },
     },
@@ -39,7 +39,7 @@ export class Header extends Component {
           <HeaderContainer>
               <a href="/"><Image src={ninja} alt="Logo"/></a>
              <MuiThemeProvider theme={typographyColor}>
-                  <Typography color="primary" variant='h4'>FutureNinjas</Typography>
+                  <Typography color="secondary" variant='h4'>FutureNinjas</Typography>
              </MuiThemeProvider>
           </HeaderContainer>
       </AppBar>

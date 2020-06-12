@@ -26,12 +26,8 @@ const theme = createMuiTheme({
 		},
 		secondary: {
 			main: "#8762D1"
-        },
-        tertiary: {
-            main: "#F5F3FC"
         }
-	}
-	
+    } 
 })
 
 function App() {
